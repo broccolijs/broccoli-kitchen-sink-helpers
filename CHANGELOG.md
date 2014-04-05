@@ -1,9 +1,10 @@
 # master
 
+* Remove `linkRecursivelySync` & `linkAndOverwrite`
+
 # 0.1.2
 
 * Add `copyRecursivelySync` & `copyPreserveSync`
-
 * Change `linkRecursivelySync` & `linkAndOverwrite` to use
   `copyRecursivelySync` & `copyPreserveTime` respectively. We now refuse
   to overwrite in either of those functions, despite the `linkAndOverwrite`

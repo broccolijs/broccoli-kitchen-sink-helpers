@@ -150,12 +150,12 @@ function copyPreserveSync (src, dest, srcStats) {
 
 exports.linkRecursivelySync = linkRecursivelySync
 function linkRecursivelySync () {
-  return copyRecursivelySync.apply(null, arguments)
+  throw new Error('linkRecursivelySync has been removed; use copyRecursivelySync instead (note: it does not overwrite)')
 }
 
 exports.linkAndOverwrite = linkAndOverwrite
 function linkAndOverwrite () {
-  return copyPreserveSync.apply(null, arguments)
+  throw new Error('linkAndOverwrite has been removed; use copyPreserveSync instead (note: it does not overwrite)')
 }
 
 
