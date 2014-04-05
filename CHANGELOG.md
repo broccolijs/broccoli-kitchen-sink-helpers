@@ -1,5 +1,7 @@
 # master
 
+# 0.1.2
+
 * Add `copyRecursivelySync` & `copyPreserveSync`
 
 * Change `linkRecursivelySync` & `linkAndOverwrite` to use
