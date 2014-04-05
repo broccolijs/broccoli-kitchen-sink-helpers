@@ -1,5 +1,7 @@
 # master
 
+# 0.2.0
+
 * Remove `linkRecursivelySync` & `linkAndOverwrite`
 
 # 0.1.2
