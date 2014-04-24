@@ -41,7 +41,7 @@ function keysForTree (fullPath, _stack, _followSymlink) {
       if (_stack != null) _stack = _stack.concat([fileIdentity])
       var entries
       try {
-        entries = fs.readdirSync(fullPath)
+        entries = fs.readdirSync(fullPath).sort()
       } catch (err) {
         console.warn('Warning: Failed to read directory ' + fullPath)
         console.warn(err.stack)
@@ -117,7 +117,7 @@ function copyRecursivelySync (src, dest, _mkdirp) {
   var srcStats = fs.lstatSync(src)
   if (srcStats.isDirectory()) {
     mkdirp.sync(dest)
-    var entries = fs.readdirSync(src)
+    var entries = fs.readdirSync(src).sort()
     for (var i = 0; i < entries.length; i++) {
       // Set _mkdirp to false when recursing to avoid extra mkdirp calls.
       copyRecursivelySync(src + '/' + entries[i], dest + '/' + entries[i], false)

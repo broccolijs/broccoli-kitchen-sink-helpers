@@ -1,5 +1,7 @@
 # master
 
+* Make readdir ordering deterministic
+
 # 0.2.0
 
 * Remove `linkRecursivelySync` & `linkAndOverwrite`
