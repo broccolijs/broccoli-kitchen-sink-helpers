@@ -1,5 +1,7 @@
 # master
 
+# 0.2.2
+
 * Make `hashTree` match after `copyRecursivelySync`, by disregarding the
   name of the root directory and not including directory times
 
