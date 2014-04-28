@@ -19,8 +19,15 @@ function hashTree (fullPath) {
   return hashStrings(keysForTree(fullPath))
 }
 
-function keysForTree (fullPath, _stack, _followSymlink) {
+function keysForTree (fullPath, options) {
+  options = options || {}
+
+  var _stack         = options._stack
+  var _followSymlink = options._followSymlink
+  var relativePath   = options.relativePath || '.'
   var stats
+  var statKeys
+
   try {
     if (_followSymlink) {
       stats = fs.statSync(fullPath)
@@ -33,6 +40,11 @@ function keysForTree (fullPath, _stack, _followSymlink) {
     // proceed hashing.
   }
   var childKeys = []
+  if (stats) {
+    statKeys = ['stats', stats.mode]
+  } else {
+    statKeys = ['stat failed']
+  }
   if (stats && stats.isDirectory()) {
     var fileIdentity = stats.dev + '\x00' + stats.ino
     if (_stack != null && _stack.indexOf(fileIdentity) !== -1) {
@@ -50,7 +62,12 @@ function keysForTree (fullPath, _stack, _followSymlink) {
       }
       if (entries != null) {
         for (var i = 0; i < entries.length; i++) {
-          childKeys = childKeys.concat(keysForTree(path.join(fullPath, entries[i]), _stack))
+
+          var keys = keysForTree(path.join(fullPath, entries[i]), {
+            _stack: _stack,
+            relativePath: path.join(relativePath, entries[i])
+          })
+          childKeys = childKeys.concat(keys)
         }
       }
     }
@@ -62,11 +79,17 @@ function keysForTree (fullPath, _stack, _followSymlink) {
       // symlinks.
       _stack = []
     }
-    childKeys = keysForTree(fullPath, _stack, true) // follow symlink
+    childKeys = keysForTree(fullPath, {_stack: _stack, relativePath: relativePath, _followSymlink: true}) // follow symlink
+    statKeys.push(stats.mtime.getTime())
+    statKeys.push(stats.size)
+  } else if (stats && stats.isFile()) {
+    statKeys.push(stats.mtime.getTime())
+    statKeys.push(stats.size)
   }
+
   // Perhaps we should not use basename to infer the file name
-  return ['path', path.basename(fullPath)]
-    .concat(stats ? ['stats', stats.mode, stats.size, stats.mtime.getTime()] : ['stat failed'])
+  return ['path', relativePath]
+    .concat(statKeys)
     .concat(childKeys)
 }
 
