@@ -1,5 +1,8 @@
 # master
 
+* Make `hashTree` match after `copyRecursivelySync`, by disregarding the
+  name of the root directory and not including directory times
+
 # 0.2.1
 
 * Make readdir ordering deterministic
