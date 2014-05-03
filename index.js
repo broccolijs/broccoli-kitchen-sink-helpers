@@ -111,7 +111,7 @@ function hashStats (stats, path) {
 exports.hashStrings = hashStrings
 function hashStrings (strings) {
   var joinedStrings = strings.join('\x00')
-  return crypto.createHash('sha256').update(joinedStrings).digest('hex')
+  return crypto.createHash('md5').update(joinedStrings).digest('hex')
 }
 
 
