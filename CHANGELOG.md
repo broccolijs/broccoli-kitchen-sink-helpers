@@ -1,5 +1,7 @@
 # master
 
+* Speed up `hashStrings` by using `MD5` (instead of `SHA256`).
+
 # 0.2.2
 
 * Make `hashTree` match after `copyRecursivelySync`, by disregarding the
