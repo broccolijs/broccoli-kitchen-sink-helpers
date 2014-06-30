@@ -4,6 +4,8 @@ var crypto = require('crypto')
 var mkdirp = require('mkdirp')
 var glob = require('glob')
 
+var isWindows = /^win/.test(process.platform)
+var pathSep   = path.sep
 
 exports.hashTree = hashTree
 function hashTree (fullPath) {
@@ -223,4 +225,17 @@ function multiGlob (globs, globOptions) {
     }
   }
   return paths
+}
+
+exports.symlinkOrCopyPreserveSync = symlinkOrCopyPreserveSync
+function symlinkOrCopyPreserveSync (sourcePath, destPath) {
+  if (isWindows) {
+    copyRecursivelySync(sourcePath, destPath)
+  } else {
+    if (sourcePath[0] != pathSep) {
+      sourcePath = process.cwd() + pathSep + sourcePath
+    }
+
+    fs.symlinkSync(sourcePath, destPath)
+  }
 }
