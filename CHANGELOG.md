@@ -1,5 +1,7 @@
 # master
 
+# 0.2.3
+
 * Speed up `hashStrings` by using `MD5` (instead of `SHA256`).
 * Add `symlinkOrCopyPreserveSync` for symlinking with copy fallback on Windows
 
