@@ -1,5 +1,7 @@
 # master
 
+* Validate that `multiGlob` argument is an array
+
 # 0.2.3
 
 * Speed up `hashStrings` by using `MD5` (instead of `SHA256`).
