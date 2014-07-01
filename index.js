@@ -196,7 +196,11 @@ function assertAbsolutePaths (paths) {
 
 // Multi-glob with reasonable defaults, so APIs all behave the same
 exports.multiGlob = multiGlob
+
 function multiGlob (globs, globOptions) {
+  if (!Array.isArray(globs)) {
+    throw new TypeError("multiGlob's first argument must be an array");
+  }
   var options = {
     nomount: true,
     strict: true
