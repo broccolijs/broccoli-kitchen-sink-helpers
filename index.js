@@ -235,7 +235,12 @@ function symlinkOrCopyPreserveSync (sourcePath, destPath) {
   if (isWindows) {
     copyRecursivelySync(sourcePath, destPath)
   } else {
-    if (sourcePath[0] != pathSep) {
+    if (fs.lstatSync(sourcePath).isSymbolicLink()) {
+      // When we encounter symlinks, follow them. This prevents indirection
+      // from growing out of control. Note: At the moment `realpath` on Node
+      // is 70x slower than native: https://github.com/joyent/node/issues/7902
+      sourcePath = fs.realpathSync(sourcePath)
+    } else if (sourcePath[0] !== pathSep) {
       sourcePath = process.cwd() + pathSep + sourcePath
     }
 
