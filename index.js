@@ -4,7 +4,7 @@ var crypto = require('crypto')
 var mkdirp = require('mkdirp')
 var glob = require('glob')
 
-var isWindows = /^win/.test(process.platform)
+var isWindows = process.platform === 'win32'
 var pathSep   = path.sep
 
 exports.hashTree = hashTree
