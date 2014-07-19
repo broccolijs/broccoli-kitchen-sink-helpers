@@ -117,6 +117,8 @@ function hashStrings (strings) {
 }
 
 
+
+
 // If src is a file, dest is a file name. If src is a directory, dest is the
 // directory that the contents of src will be copied into.
 //
@@ -129,11 +131,14 @@ function hashStrings (strings) {
 // directory, because relying on things to exist when we're in the middle of
 // assembling a new tree is too brittle.
 //
-// We would like to use wrench.copyDirSyncRecursive, but it has the following
-// problems:
-// * Returns(!) an error when the target directory exists; only alternative
-//   is { forceDelete: true }, which does `rm -rf dest` (not what we want)
-// * Resolves symlinks, rather than copying them verbatim
+// This function should be avoided in favor of
+// https://github.com/broccolijs/node-copy-dereference
+//
+// copy-dereference differs from copyRecursivelySync in that it dereferences
+// symlinks. copy-dereference also won't call mkdirp to create the target
+// directory (or the parent directory of the target file), which makes it
+// stricter: (1) It's not OK for the target directory to exist already, and
+// (2) missing parent directories will not automatically be created.
 exports.copyRecursivelySync = copyRecursivelySync
 function copyRecursivelySync (src, dest, _mkdirp) {
   if (_mkdirp == null) _mkdirp = true
