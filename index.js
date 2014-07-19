@@ -117,8 +117,6 @@ function hashStrings (strings) {
 }
 
 
-
-
 // If src is a file, dest is a file name. If src is a directory, dest is the
 // directory that the contents of src will be copied into.
 //
