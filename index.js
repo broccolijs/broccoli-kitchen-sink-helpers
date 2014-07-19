@@ -233,6 +233,9 @@ function multiGlob (globs, globOptions) {
   return paths
 }
 
+
+// This function is deprecated in favor of
+// https://github.com/broccolijs/node-symlink-or-copy
 exports.symlinkOrCopyPreserveSync = symlinkOrCopyPreserveSync
 function symlinkOrCopyPreserveSync (sourcePath, destPath) {
   if (isWindows) {
