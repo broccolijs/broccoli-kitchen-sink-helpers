@@ -129,7 +129,7 @@ function hashStrings (strings) {
 // directory, because relying on things to exist when we're in the middle of
 // assembling a new tree is too brittle.
 //
-// This function should be avoided in favor of
+// This function is deprecated in favor of
 // https://github.com/broccolijs/node-copy-dereference
 //
 // copy-dereference differs from copyRecursivelySync in that it dereferences
@@ -158,6 +158,9 @@ function copyRecursivelySync (src, dest, _mkdirp) {
   }
 }
 
+// This function is deprecated in favor of
+// https://github.com/broccolijs/node-copy-dereference
+//
 // srcStats is optional; use it as an optimization to avoid double stats
 // This function refuses to overwrite files.
 exports.copyPreserveSync = copyPreserveSync
