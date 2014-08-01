@@ -123,7 +123,7 @@ function hashStrings (strings) {
 // This function refuses to overwrite files, but accepts if directories exist
 // already.
 //
-// This does not resolve symlinks. It is not clear whether it should.
+// This function dereferences symlinks.
 //
 // Note that unlike cp(1), we do not special-case if dest is an existing
 // directory, because relying on things to exist when we're in the middle of
@@ -132,17 +132,17 @@ function hashStrings (strings) {
 // This function is deprecated in favor of
 // https://github.com/broccolijs/node-copy-dereference
 //
-// copy-dereference differs from copyRecursivelySync in that it dereferences
-// symlinks. copy-dereference also won't call mkdirp to create the target
-// directory (or the parent directory of the target file), which makes it
-// stricter: (1) It's not OK for the target directory to exist already, and
-// (2) missing parent directories will not automatically be created.
+// copy-dereference differs from copyRecursivelySync in that it won't call
+// mkdirp to create the target directory (or the parent directory of the
+// target file), which makes it stricter: (1) It's not OK for the target
+// directory to exist already, and (2) missing parent directories will not
+// automatically be created.
 exports.copyRecursivelySync = copyRecursivelySync
 function copyRecursivelySync (src, dest, _mkdirp) {
   if (_mkdirp == null) _mkdirp = true
   // Note: We could try readdir'ing and catching ENOTDIR exceptions, but that
   // is 3x slower than stat'ing in the common case that we have a file.
-  var srcStats = fs.lstatSync(src)
+  var srcStats = fs.statSync(src)
   if (srcStats.isDirectory()) {
     mkdirp.sync(dest)
     var entries = fs.readdirSync(src).sort()
@@ -165,15 +165,11 @@ function copyRecursivelySync (src, dest, _mkdirp) {
 // This function refuses to overwrite files.
 exports.copyPreserveSync = copyPreserveSync
 function copyPreserveSync (src, dest, srcStats) {
-  if (srcStats == null) srcStats = fs.lstatSync(src)
+  if (srcStats == null) srcStats = fs.statSync(src)
   if (srcStats.isFile()) {
     var content = fs.readFileSync(src)
     fs.writeFileSync(dest, content, { flag: 'wx' })
     fs.utimesSync(dest, srcStats.atime, srcStats.mtime)
-  } else if (srcStats.isSymbolicLink()) {
-    fs.symlinkSync(fs.readlinkSync(src), dest)
-    // We cannot update the atime/mtime of a symlink yet:
-    // https://github.com/joyent/node/issues/2142
   } else {
     throw new Error('Unexpected file type for ' + src)
   }

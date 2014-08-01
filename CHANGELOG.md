@@ -1,5 +1,7 @@
 # master
 
+* Follow symlinks in `copyRecursivelySync` and `copyPreserveSync`
+
 # 0.2.4
 
 * Validate that `multiGlob` argument is an array
