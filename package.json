@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "mkdirp": "^0.3.5",
-    "glob": "^3.2.9"
+    "glob": "^4.0.4"
   }
 }
