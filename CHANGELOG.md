@@ -1,6 +1,7 @@
 # master
 
 * Follow symlinks in `copyRecursivelySync` and `copyPreserveSync`
+* Update `node-glob` to latest (4.0.5).
 
 # 0.2.4
 
