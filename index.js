@@ -57,7 +57,6 @@ function keysForTree (fullPath, initialRelativePath) {
     }
     if (entries != null) {
       for (var i = 0; i < entries.length; i++) {
-
         var keys = keysForTree(
           path.join(fullPath, entries[i]),
           path.join(relativePath, entries[i])
@@ -70,7 +69,6 @@ function keysForTree (fullPath, initialRelativePath) {
     statKeys.push(stats.size)
   }
 
-  // Perhaps we should not use basename to infer the file name
   return ['path', relativePath]
     .concat(statKeys)
     .concat(childKeys)
