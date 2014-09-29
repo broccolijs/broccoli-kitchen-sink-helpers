@@ -1,6 +1,6 @@
 # master
 
-* Follow symlinks in `copyRecursivelySync` and `copyPreserveSync`
+* Follow symlinks in `copyRecursivelySync`, `copyPreserveSync`, and `hashTree`
 * Update `node-glob` to latest (4.0.5).
 
 # 0.2.4
