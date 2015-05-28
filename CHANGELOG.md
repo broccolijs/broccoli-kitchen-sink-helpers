@@ -1,5 +1,7 @@
 # master
 
+* Update glob and use new `follow` option
+
 # 0.2.6
 
 * Lock down to `node-glob` 4.0.4. After 4.0.4 `node-glob` changed the symlinked directory
