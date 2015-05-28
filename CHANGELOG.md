@@ -1,5 +1,7 @@
 # master
 
+# 0.2.7
+
 * Update glob and use new `follow` option
 
 # 0.2.6
