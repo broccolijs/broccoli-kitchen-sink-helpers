@@ -182,6 +182,7 @@ function multiGlob (globs, globOptions) {
     throw new TypeError("multiGlob's first argument must be an array");
   }
   var options = {
+    follow: true,
     nomount: true,
     strict: true
   }
