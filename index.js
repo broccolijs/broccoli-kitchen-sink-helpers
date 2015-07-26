@@ -23,6 +23,7 @@ function hashTree (fullPath) {
   return hashStrings(keysForTree(fullPath))
 }
 
+exports.keysForTree = keysForTree
 function keysForTree (fullPath, initialRelativePath) {
   var relativePath   = initialRelativePath || '.'
   var stats
