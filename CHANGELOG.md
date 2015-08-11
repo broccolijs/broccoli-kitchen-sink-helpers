@@ -1,5 +1,7 @@
 # master
 
+# 0.2.8
+
 * Export `keysForTree`
 
 # 0.2.7
