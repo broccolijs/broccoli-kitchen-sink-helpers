@@ -1,5 +1,7 @@
 # master
 
+* Export `keysForTree`
+
 # 0.2.7
 
 * Update glob and use new `follow` option
