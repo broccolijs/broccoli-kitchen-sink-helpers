@@ -1,5 +1,7 @@
 # master
 
+* Update mkdirp
+
 # 0.2.8
 
 * Export `keysForTree`
