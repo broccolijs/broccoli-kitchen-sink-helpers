@@ -1,5 +1,7 @@
 # master
 
+# 0.2.9
+
 * Update mkdirp
 
 # 0.2.8
