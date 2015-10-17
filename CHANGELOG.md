@@ -1,5 +1,7 @@
 # master
 
+* In keysForTree, require top-level directory (or file) to exist
+
 # 0.2.9
 
 * Update mkdirp

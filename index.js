@@ -29,23 +29,11 @@ function keysForTree (fullPath, initialRelativePath) {
   var stats
   var statKeys
 
-  try {
-    stats = fs.statSync(fullPath)
-  } catch (err) {
-    if (!keysForTreeWarningPrinted) {
-      console.warn('Warning: failed to stat ' + fullPath)
-      keysForTreeWarningPrinted = true
-    }
-    // fullPath has probably ceased to exist. Leave `stats` undefined and
-    // proceed hashing.
-  }
+  stats = fs.statSync(fullPath)
+
   var childKeys = []
-  if (stats) {
-    statKeys = ['stats', stats.mode]
-  } else {
-    statKeys = ['stat failed']
-  }
-  if (stats && stats.isDirectory()) {
+  statKeys = ['stats', stats.mode]
+  if (stats.isDirectory()) {
     var fileIdentity = stats.dev + '\x00' + stats.ino
     var entries
     try {
@@ -58,16 +46,29 @@ function keysForTree (fullPath, initialRelativePath) {
     }
     if (entries != null) {
       for (var i = 0; i < entries.length; i++) {
-        var keys = keysForTree(
-          path.join(fullPath, entries[i]),
-          path.join(relativePath, entries[i])
-        )
+        var keys
+        try {
+          keys = keysForTree(
+            path.join(fullPath, entries[i]),
+            path.join(relativePath, entries[i])
+          )
+        } catch (err) {
+          if (!keysForTreeWarningPrinted) {
+            console.warn('Warning: failed to stat ' + path.join(fullPath, entries[i]))
+            keysForTreeWarningPrinted = true
+          }
+          // The child has probably ceased to exist since we called
+          // `readdirSync`, or it is a broken symlink.
+          keys = ['missing']
+        }
         childKeys = childKeys.concat(keys)
       }
     }
-  } else if (stats && stats.isFile()) {
+  } else if (stats.isFile()) {
     statKeys.push(stats.mtime.getTime())
     statKeys.push(stats.size)
+  } else {
+    throw new Error(fullPath + ': Unexpected file type')
   }
 
   return ['path', relativePath]
