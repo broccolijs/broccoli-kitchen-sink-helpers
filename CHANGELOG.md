@@ -1,5 +1,7 @@
 # master
 
+# 0.3.0
+
 * In keysForTree, require top-level directory (or file) to exist
 
 # 0.2.9
