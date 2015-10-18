@@ -1,5 +1,7 @@
 # master
 
+# 0.3.1
+
 * Fix Unicode handling for `hashStrings` function
 
 # 0.3.0
