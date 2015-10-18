@@ -1,5 +1,7 @@
 # master
 
+* Fix Unicode handling for `hashStrings` function
+
 # 0.3.0
 
 * In keysForTree, require top-level directory (or file) to exist
