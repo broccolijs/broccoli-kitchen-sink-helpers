@@ -34,7 +34,6 @@ function keysForTree (fullPath, initialRelativePath) {
   var childKeys = []
   statKeys = ['stats', stats.mode]
   if (stats.isDirectory()) {
-    var fileIdentity = stats.dev + '\x00' + stats.ino
     var entries
     try {
       entries = fs.readdirSync(fullPath).sort()
